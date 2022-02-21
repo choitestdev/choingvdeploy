@@ -1,0 +1,11 @@
+version: 0.0
+os: linux
+files:
+- source: ROOT.war
+  destination: /was/www/web1
+hooks:
+  BeforeInstall:
+  - location: BeforeInstall.sh
+  AfterInstall:
+  - location: AfterInstall.sh
+    runas: root

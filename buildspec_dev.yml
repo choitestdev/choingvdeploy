@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto8
+  pre_build:
+    commands:
+      - cp ./settings.xml /root/.m2/settings.xml
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn -e -Dmaven.test.skip=true clean install # maven build command
+  post_build:
+    commands:
+      - mv target/*.war target/ROOT.war
+      - echo Build completed on `date`
+
+cache:
+  paths:
+    - '/root/.m2/**/*'
+
+artifacts: # build result configuration
+  files:
+    - target/*.war
+    - dev/**/*          # Appspec & Scripts for Codedeploy
+  discard-paths: yes
